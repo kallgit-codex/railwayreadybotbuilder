@@ -1,0 +1,30 @@
+Customer Support Knowledge Base
+
+Frequently Asked Questions:
+
+1. Pricing Plans:
+   - Basic Plan: $9.99/month for individuals
+   - Standard Plan: $19.99/month for small teams
+   - Premium Plan: $49.99/month for large organizations
+   - Enterprise: Custom pricing for large enterprises
+
+2. Technical Support:
+   - Email support: support@ourcompany.com
+   - Live chat available 9 AM - 5 PM EST
+   - Priority support for Premium and Enterprise customers
+
+3. Account Management:
+   - Password reset available through login page
+   - Account upgrades can be done in billing section
+   - Cancellations require 30-day notice
+
+4. Billing Information:
+   - All plans billed monthly
+   - Annual discounts available (20% off)
+   - Payment accepted: Credit cards, PayPal, Bank transfer
+   - Invoices sent monthly via email
+
+5. Common Issues:
+   - Login problems: Clear cache and try again
+   - Payment failures: Contact billing department
+   - Feature access: Check subscription plan level

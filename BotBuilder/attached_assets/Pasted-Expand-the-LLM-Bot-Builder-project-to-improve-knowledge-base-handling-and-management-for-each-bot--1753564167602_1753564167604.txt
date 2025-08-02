@@ -1,0 +1,50 @@
+Expand the "LLM Bot Builder" project to improve knowledge base handling and management for each bot. Build on top of the existing knowledge_service.py and dashboard.
+
+1. **Knowledge File Management**
+   - In the backend:
+       * Create a database table `knowledge_files` with columns:
+           - id (primary key)
+           - bot_id
+           - filename
+           - filepath
+           - upload_date
+           - tags (optional)
+       * When a file is uploaded to /api/bots/<bot_id>/knowledge, save file metadata to this table.
+   - Add a DELETE route /api/bots/<bot_id>/knowledge/<file_id> to remove a knowledge file.
+   - Update knowledge_service.py to list all files for a bot and allow deletion.
+
+2. **Chunking & Indexing**
+   - When a file is uploaded, split its content into small chunks (e.g., 500–1000 characters).
+   - Store chunks in the database with references to the file and bot_id.
+   - Update knowledge retrieval to fetch only relevant chunks based on the user query instead of the entire file.
+
+3. **Category Tagging**
+   - Allow tagging files with categories (FAQ, Products, Policies, etc.).
+   - Store tags in the knowledge_files table.
+   - Use tags as part of context retrieval when generating responses.
+
+4. **Frontend Dashboard**
+   - For each bot, create a "Knowledge Base" section:
+       * Show a list of uploaded files with metadata (filename, size, upload date, tags).
+       * Allow uploading multiple files at once.
+       * Allow adding/editing tags.
+       * Allow deleting files.
+       * Provide a text area to add quick manual knowledge snippets without uploading a file.
+
+5. **Knowledge + Conversation Merge**
+   - In openai_service.generate_response, combine:
+       * Relevant knowledge chunks retrieved from the database.
+       * Recent conversation history (from Phase 6).
+   - Pass both into GPT-4 to create more accurate, contextual responses.
+
+6. **General**
+   - Keep the chunking logic modular for future upgrades (embedding/vector DB later if needed).
+   - Do not break existing knowledge upload or chat functionality.
+   - Keep the UI clean and functional using vanilla JavaScript and HTML.
+
+When finished, I should be able to:
+- Upload, view, tag, and delete knowledge files per bot.
+- Handle large files with chunked context retrieval.
+- Add quick manual knowledge without a file.
+- See and manage all training materials from the dashboard.
+- Have bots answer using both conversation memory and relevant knowledge.

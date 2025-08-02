@@ -1,0 +1,42 @@
+Update the "LLM Bot Builder" deployment system so that clicking "Deploy" with valid API keys automatically registers webhooks for all supported platforms (Telegram, WhatsApp, Facebook, Instagram) without requiring manual curl commands.
+
+1. **Backend**
+   - In /api/bots/<bot_id>/deploy:
+       * Detect which platform is selected (telegram, whatsapp, facebook, instagram).
+       * Use the client's stored API key(s) for that platform.
+       * Build the webhook URL dynamically: {server_url}/webhook/{platform}/{bot_id}.
+       * Call the correct API endpoint for the platform to register the webhook automatically:
+
+         - **Telegram**
+           POST https://api.telegram.org/bot<API_KEY>/setWebhook
+           Data: url=<webhook_url>
+
+         - **WhatsApp**
+           Verify webhook via Meta Graph API (use phone_number_id and access token).
+           Subscribe the webhook to messages events.
+
+         - **Facebook/Instagram**
+           Use Meta Graph API to subscribe the app to messages for the Page/IG account.
+           POST to the correct /subscribed_apps endpoint with access token.
+
+   - Return a success/failure status and any error details from the API call.
+
+2. **Frontend**
+   - When "Deploy" is clicked:
+       * Call the backend deploy route.
+       * Display a clear success message if the webhook registers.
+       * If failure, show the API error so the user can fix API keys or permissions.
+
+3. **Database**
+   - Store the webhook status per bot (e.g., deployed = true, last_deployed = timestamp).
+
+4. **Test**
+   - Enter valid API keys for a client.
+   - Click Deploy for Telegram, WhatsApp, Facebook, Instagram.
+   - Confirm the system registers each webhook without manual commands.
+   - Verify messages start routing immediately to the bot.
+
+When finished, the entire deployment flow should require only:
+- Setting API keys for the client.
+- Clicking Deploy.
+All webhook registration should happen automatically in the background for every supported platform.

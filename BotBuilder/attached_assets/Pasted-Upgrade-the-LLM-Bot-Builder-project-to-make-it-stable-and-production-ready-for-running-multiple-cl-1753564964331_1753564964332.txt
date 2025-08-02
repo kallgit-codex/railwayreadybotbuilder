@@ -1,0 +1,54 @@
+Upgrade the "LLM Bot Builder" project to make it stable and production-ready for running multiple client bots 24/7. Build on top of the current code without breaking existing features.
+
+1. **Error Handling**
+   - Wrap all Flask routes with proper try/except blocks.
+   - Return consistent JSON error messages with status codes.
+   - Create a central error handler in app.py for uncaught exceptions.
+
+2. **Logging**
+   - Add a logging module that logs:
+       * API errors
+       * Incoming and outgoing messages (bot_id, client_id, timestamp)
+       * Deployment events
+   - Store logs in a `/logs` folder and rotate daily or weekly.
+   - Optional: Add a database table for message logs with timestamps for analytics.
+
+3. **Rate Limiting & Request Control**
+   - Add a simple rate limiter per bot to prevent abuse.
+   - Example: No more than X messages per second/minute per bot.
+   - If a bot hits the limit, return a JSON error with a clear message.
+
+4. **Environment & Config**
+   - Move all sensitive values (OpenAI keys, DB path, webhook secrets) into a `.env` file.
+   - Create a config.py module to load environment variables cleanly.
+   - Update the codebase to use config variables instead of hard-coded values.
+
+5. **Database Migrations**
+   - Add a migration script to handle schema updates without losing data.
+   - Optimize database indexes for faster knowledge and conversation lookups.
+
+6. **Always-On Hosting Prep**
+   - Ensure the Flask app can run on a persistent public URL for webhooks.
+   - Add a /health route to check server status.
+   - Document steps for running on:
+       * Replit Always-On
+       * A VPS (DigitalOcean, Render, Railway)
+
+7. **System Health Dashboard**
+   - Add a simple "System Health" tab in the dashboard:
+       * Show server status from /health.
+       * Show a list of active bots and connected webhooks.
+       * Optional: Show average response time and token usage summary.
+
+8. **General**
+   - Keep all changes modular and do not overwrite working code.
+   - Maintain current file structure and dashboard layout.
+   - Ensure logging and error handling do not interfere with bot performance.
+
+When finished, I should have:
+- Consistent error handling across the app.
+- Logs for all messages and errors.
+- Basic rate limiting to protect token usage.
+- Secure environment configuration using .env.
+- A health dashboard to monitor system status.
+- A codebase ready for Always-On hosting to keep bots running 24/7.
