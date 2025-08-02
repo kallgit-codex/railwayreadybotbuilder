@@ -1,0 +1,21 @@
+LLM Bot Builder Platform Information
+
+This is a comprehensive bot building platform that allows users to:
+
+1. Create custom AI chatbots with personalized personalities
+2. Upload knowledge bases in various formats (PDF, TXT, MD, CSV)
+3. Deploy bots to multiple social media platforms:
+   - Instagram
+   - Facebook Messenger  
+   - WhatsApp Business
+   - Telegram
+
+Key Features:
+- OpenAI GPT-4o integration for intelligent responses
+- Conversation memory and session management
+- Real-time chat testing interface
+- Knowledge base search and context integration
+- Temperature control for response creativity
+- Bootstrap-based responsive dashboard
+
+The platform is built with Flask backend and vanilla JavaScript frontend, designed to be modular and easily extensible.

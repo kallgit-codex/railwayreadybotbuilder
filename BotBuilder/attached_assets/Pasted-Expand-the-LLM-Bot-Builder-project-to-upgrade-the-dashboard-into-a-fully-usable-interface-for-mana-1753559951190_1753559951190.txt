@@ -1,0 +1,60 @@
+Expand the "LLM Bot Builder" project to upgrade the dashboard into a fully usable interface for managing clients, bots, knowledge bases, and chatting without touching code.
+
+Build the following features:
+
+1. **Dashboard Layout**
+   - Redesign index.html to have a simple two-panel layout:
+       * Left sidebar: List of clients.
+       * Main panel: Displays the selected client’s info, bots, file uploads, and chat interface.
+   - Use plain HTML/CSS (vanilla JavaScript, no frameworks).
+
+2. **Client Management UI**
+   - In the sidebar:
+       * Display all clients.
+       * Button to create a new client.
+   - In the main panel when a client is selected:
+       * Show client name, notes, and API keys.
+       * Editable fields to update client info and API keys.
+       * Save button to update via /api/clients/<client_id>.
+
+3. **Bot Management UI**
+   - Under the selected client’s details:
+       * Display all bots linked to that client.
+       * Button to create a new bot for this client.
+       * Show each bot with:
+           - Name
+           - Quick “Chat” button
+           - Quick “Upload Knowledge” button
+
+4. **Knowledge Base Upload UI**
+   - When a bot is selected:
+       * Show a file upload form to attach PDFs/text to that bot.
+       * Call /api/bots/<bot_id>/knowledge to upload files.
+       * Display a list of uploaded knowledge files for that bot.
+
+5. **Chat Interface**
+   - Create a simple chat window under the selected bot:
+       * Text input + send button.
+       * Display chat history in the window.
+       * Send messages via /api/bots/<bot_id>/message.
+       * Append both user and bot messages to the window.
+
+6. **Frontend Functionality**
+   - Update dashboard.js to handle:
+       * Loading clients and bots dynamically.
+       * Creating clients and bots.
+       * Uploading files and refreshing the list.
+       * Sending and displaying chat messages in real-time.
+
+7. **General**
+   - Keep everything lightweight with vanilla JS, no frameworks.
+   - Maintain the existing Flask backend and routes.
+   - Keep the UI clean and simple for internal use (no fancy design needed, just functional).
+   - Do not remove or overwrite existing working code, only expand.
+
+When finished, I should be able to:
+- Click through clients in a sidebar.
+- Edit client info and API keys from the dashboard.
+- Create and manage bots per client.
+- Upload knowledge files to bots.
+- Chat with bots directly in the browser with GPT-4 responses.

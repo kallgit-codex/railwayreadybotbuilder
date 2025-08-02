@@ -1,0 +1,103 @@
+Build a program called "LLM Bot Builder" using Python and Flask for the backend.
+
+Core Requirements:
+- A dashboard to create and manage multiple bots.
+- Ability to upload custom knowledge bases for each bot (PDFs/text).
+- Configure each bot’s behavior/personality and integrate APIs.
+- A deployment wizard to connect bots to Instagram, Facebook Messenger, WhatsApp, and Telegram.
+- Bots should use OpenAI GPT-4, support conversation memory, and allow freeform chat.
+- Modular backend design for easy expansion and secure data storage.
+- Frontend dashboard built with HTML/CSS/JavaScript.
+
+Instructions:
+- Use the starter code below and expand it to match the requirements above.
+- Build backend routes and models for bots and knowledge bases.
+- Create a simple dashboard page in /frontend that communicates with the Flask API.
+- Set up placeholder functions for platform integrations.
+- Keep the code clean, organized, and scalable with a modular structure.
+
+Starter Code:
+
+app.py
+--------------------------------
+from flask import Flask, request, jsonify, send_from_directory
+import os
+
+app = Flask(__name__, static_folder="frontend", static_url_path="")
+
+@app.route('/')
+def index():
+    return send_from_directory('frontend', 'index.html')
+
+bots = {}
+
+@app.route('/api/bots', methods=['GET', 'POST'])
+def manage_bots():
+    if request.method == 'POST':
+        data = request.json
+        bot_id = data.get('id')
+        bots[bot_id] = {"name": data.get("name"), "knowledge": []}
+        return jsonify({"message": "Bot created", "bot": bots[bot_id]})
+    return jsonify(bots)
+
+@app.route('/api/bots/<bot_id>/message', methods=['POST'])
+def bot_message(bot_id):
+    user_msg = request.json.get('message')
+    return jsonify({"response": f"[Bot {bot_id}] Echo: {user_msg}"})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
+
+frontend/index.html
+--------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LLM Bot Builder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>LLM Bot Builder Dashboard</h1>
+  <div id="app">
+    <button onclick="createBot()">Create Test Bot</button>
+    <button onclick="sendMessage()">Send Test Message</button>
+    <pre id="output"></pre>
+  </div>
+  <script src="dashboard.js"></script>
+</body>
+</html>
+
+
+frontend/dashboard.js
+--------------------------------
+async function createBot() {
+  const res = await fetch('/api/bots', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id: 'testbot', name: 'Test Bot'})
+  });
+  document.getElementById('output').innerText = await res.text();
+}
+
+async function sendMessage() {
+  const res = await fetch('/api/bots/testbot/message', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({message: 'Hello AI!'})
+  });
+  document.getElementById('output').innerText = await res.text();
+}
+
+
+frontend/styles.css
+--------------------------------
+body { font-family: Arial, sans-serif; margin: 20px; }
+h1 { color: #333; }
+button { margin-right: 10px; }
+pre { background: #f4f4f4; padding: 10px; }
+
+What to Do:
+- Use this starter code exactly as provided.
+- Expand it into the full LLM Bot Builder following the core requirements.
+- Keep the architecture modular and clean so new features (API integrations, deployment wizard, client profiles) can be added easily.

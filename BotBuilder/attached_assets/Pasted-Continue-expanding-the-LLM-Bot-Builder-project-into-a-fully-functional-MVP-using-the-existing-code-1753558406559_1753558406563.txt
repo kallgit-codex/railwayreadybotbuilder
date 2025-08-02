@@ -1,0 +1,48 @@
+Continue expanding the "LLM Bot Builder" project into a fully functional MVP using the existing code as the base.
+
+Complete the following in ONE pass:
+
+1. **Knowledge Base Integration**
+   - Fully implement /api/bots/<id>/knowledge to handle file uploads (PDFs and text).
+   - Use knowledge_service.py to parse and store file contents linked to the correct bot.
+   - Add a function in knowledge_service.py to retrieve relevant knowledge context for a given bot_id and user query.
+   - Pass this context into generate_response in openai_service.py.
+
+2. **Frontend Dashboard**
+   - Expand index.html to include:
+       * A section to display all bots and create new ones.
+       * A file upload form to attach knowledge files to a selected bot.
+       * A simple chat interface to send messages to a selected bot and display responses.
+   - Expand dashboard.js to:
+       * Fetch and display the list of bots on page load.
+       * Handle creating new bots via /api/bots.
+       * Handle file uploads via /api/bots/<id>/knowledge.
+       * Handle sending chat messages and displaying bot responses via /api/bots/<id>/message.
+
+3. **Deployment Wizard Scaffold**
+   - In platform_service.py, create stub functions:
+       * deploy_to_instagram(bot_id)
+       * deploy_to_facebook(bot_id)
+       * deploy_to_whatsapp(bot_id)
+       * deploy_to_telegram(bot_id)
+   - These can be empty but should include comments describing intended functionality.
+
+4. **General Improvements**
+   - Ensure all Flask routes return proper JSON responses with error handling.
+   - Make sure the frontend correctly updates the UI after creating bots, uploading files, and chatting.
+   - Keep the code modular and organized (services for logic, routes thin).
+   - Maintain compatibility with the current file structure and do not overwrite unrelated files.
+
+5. **Environment Variables**
+   - Create a .env template (if not already present) with:
+       OPENAI_API_KEY=your_openai_key_here
+   - Update the project to load environment variables with python-dotenv where needed.
+
+When done, you should have:
+- Working bot creation and listing.
+- File upload and knowledge base integration.
+- GPT-4-powered chat that uses stored knowledge as context.
+- A simple but functional dashboard for managing and chatting with bots.
+- Deployment wizard scaffolds ready for future platform integrations.
+
+Do NOT reset or remove existing code; build on top of what’s already there.
